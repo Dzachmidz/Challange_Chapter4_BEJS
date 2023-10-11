@@ -1,0 +1,40 @@
+#################### USERS ####################
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "Achmad Fahmi Al Hafidz",
+  "email": "fahmialhafidza6@gmail.com",
+  "password": "fahmi12345",
+  "profile": {
+    "identifyType": "KTP",
+    "identifyNumber": "1234567890",
+    "address": "Sidoarjo"
+  }
+}
+
+###
+GET http://localhost:3000/api/v1/users
+
+###
+GET http://localhost:3000/api/v1/users/1
+
+#################### ACCOUNTS ####################
+
+POST http://localhost:3000/api/v1/accounts
+Content-Type: application/json
+
+{
+  "userId": "1",
+  "bankName": "Bank BCA",
+  "bankAccountNumber": "123456789",
+  "balance": 100000.00
+}
+
+###
+GET http://localhost:3000/api/v1/accounts
+
+###
+GET http://localhost:3000/api/v1/accounts/1
+
+#################### TRANSACTION ####################
