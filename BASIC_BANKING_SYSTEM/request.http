@@ -1,4 +1,5 @@
 #################### USERS ####################
+### CREATE USER
 POST http://localhost:3000/api/v1/users
 Content-Type: application/json
 
@@ -13,28 +14,43 @@ Content-Type: application/json
   }
 }
 
-###
+### GET ALL USER
 GET http://localhost:3000/api/v1/users
 
-###
+### GET DETAIL USER
 GET http://localhost:3000/api/v1/users/1
 
 #################### ACCOUNTS ####################
-
+### CREATE ACCOOUNT
 POST http://localhost:3000/api/v1/accounts
 Content-Type: application/json
 
 {
-  "userId": "1",
-  "bankName": "Bank BCA",
+  "userId": "6",
+  "bankName": "Bank BTN",
   "bankAccountNumber": "123456789",
-  "balance": 100000.00
+  "balance": 350000.00
 }
 
-###
+### GET ALL ACCOUNT
 GET http://localhost:3000/api/v1/accounts
 
-###
+### GET DETAIL ACCOUNT
 GET http://localhost:3000/api/v1/accounts/1
 
 #################### TRANSACTION ####################
+### CREATE TRANSACTION
+POST http://localhost:3000/api/v1/transactions
+Content-Type: application/json
+
+{
+  "sourceAccountId": 1,
+  "destinasiAccountId": 2,
+  "amount": 1000 
+}
+
+### GET ALL TRANSACTION
+GET http://localhost:3000/api/v1/transactions
+
+### GET DETAIL TRANSACTION
+GET http://localhost:3000/api/v1/transactions/1
