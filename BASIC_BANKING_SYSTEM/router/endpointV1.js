@@ -18,13 +18,13 @@ router.post("/users", createUser);
 router.get("/users", getAllUsers);
 router.get("/users/:userId", getDetailUser);
 
-// ==================== USERS ====================
+// ==================== ACCOUNTS ====================
 
 router.post("/accounts", createAccount);
 router.get("/accounts", getAllAccounts);
 router.get("/accounts/:accountId", getDetailAccount);
 
-// ==================== USERS ====================
+// ==================== TRANSACTIONS ====================
 
 router.post("/transactions", createTransaction);
 router.get("/transactions", getAllTransactions);
