@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { createUser, getAllUsers, getDetailUser } = require("../handlers/users");
 const { createAccount, getAllAccounts, getDetailAccount } = require("../handlers/accounts");
-const { createTransaction, getAllTransactions, getDetailTransaction } = require("../handlers/transactions");
+const { createTransaction, getAllTransaction, getDetailTransaction } = require("../handlers/transactions");
 
 router.get("/", (req, res) => {
   res.status(200).json({
@@ -27,7 +27,7 @@ router.get("/accounts/:accountId", getDetailAccount);
 // ==================== TRANSACTIONS ====================
 
 router.post("/transactions", createTransaction);
-router.get("/transactions", getAllTransactions);
+router.get("/transactions", getAllTransaction);
 router.get("/transactions/:transactionId", getDetailTransaction);
 
 module.exports = router; 

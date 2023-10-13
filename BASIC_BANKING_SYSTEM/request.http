@@ -44,9 +44,9 @@ POST http://localhost:3000/api/v1/transactions
 Content-Type: application/json
 
 {
-  "sourceAccountId": 1,
-  "destinasiAccountId": 2,
-  "amount": 1000 
+  "sourceAccountId": 3,
+  "destinasiAccountId": 4,
+  "amount": 1000.00 
 }
 
 ### GET ALL TRANSACTION

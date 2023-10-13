@@ -6,8 +6,10 @@ module.exports = {
     let { sourceAccountId, destinasiAccountId, amount } = req.body;
     try {
       // Validasi akun pengirim
-      const sourceAccount = await prisma.bankAccount.findUnique({
-        where: { id: Number(sourceAccountId) },
+      let sourceAccount = await prisma.bankAccount.findUnique({
+        where: {
+          id: sourceAccountId,
+        },
       });
 
       if (!sourceAccount) {
@@ -19,8 +21,10 @@ module.exports = {
       }
 
       // Validasi akun penerima
-      const destinasiAccount = await prisma.bankAccount.findUnique({
-        where: { id: Number(destinasiAccountId) },
+      let destinasiAccount = await prisma.bankAccount.findUnique({
+        where: {
+          id: destinasiAccountId,
+        },
       });
 
       if (!destinasiAccount) {
@@ -41,39 +45,51 @@ module.exports = {
       }
 
       // Membuat transaksi
-      const transaction = await prisma.transaction.create({
+      let createTransaction = await prisma.transaksi.create({
         data: {
-          sourceAccountId: Number(sourceAccountId),
-          destinasiAccountId: Number(destinasiAccountId),
-          amount: amount,
+          sourceAccountId,
+          destinasiAccountId,
+          amount,
         },
       });
 
       // Mengurangi saldo pengirim
       await prisma.bankAccount.update({
-        where: { id: sourceAccount.id },
-        data: { balance: sourceAccount.balance - amount },
+        where: {
+          id: sourceAccountId,
+        },
+        data: {
+          balance: {
+            decrement: amount,
+          },
+        },
       });
 
       // Menambahkan saldo penerima
       await prisma.bankAccount.update({
-        where: { id: destinasiAccount.id },
-        data: { balance: destinasiAccount.balance + amount },
+        where: {
+          id: destinasiAccountId,
+        },
+        data: {
+          balance: {
+            increment: amount,
+          },
+        },
       });
 
       res.status(201).json({
         status: true,
         message: "Transaction Created Successfully!",
-        data: transaction,
+        data: createTransaction,
       });
     } catch (err) {
       next(err);
     }
   },
 
-  getAllTransactions: async (req, res, next) => {
+  getAllTransaction: async (req, res, next) => {
     try {
-      const transactions = await prisma.transaction.findMany();
+      let transactions = await prisma.transaksi.findMany();
       res.status(200).json({
         status: true,
         message: "All Transactions Data",
@@ -87,7 +103,7 @@ module.exports = {
   getDetailTransaction: async (req, res, next) => {
     try {
       let { transactionId } = req.params;
-      const transaction = await prisma.transaction.findUnique({
+      const transaction = await prisma.transaksi.findUnique({
         where: { id: Number(transactionId) },
       });
 
@@ -100,17 +116,17 @@ module.exports = {
       }
 
       // Dapatkan detail akun pengirim
-      const sourceAccount = await prisma.bankAccount.findUnique({
+      let sourceAccount = await prisma.bankAccount.findUnique({
         where: { id: transaction.sourceAccountId },
       });
 
       // Dapatkan detail akun penerima
-      const destinasiAccount = await prisma.bankAccount.findUnique({
+      let destinasiAccount = await prisma.bankAccount.findUnique({
         where: { id: transaction.destinasiAccountId },
       });
 
       // Menggabungkan data transaksi dengan detail akun
-      const transactionDetails = {
+      let transactionDetails = {
         ...transaction,
         sourceAccount: sourceAccount,
         destinasiAccount: destinasiAccount,
